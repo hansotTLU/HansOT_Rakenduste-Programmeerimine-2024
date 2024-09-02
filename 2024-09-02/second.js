@@ -57,9 +57,21 @@ const addNumbersNestedAFnShort = (num1) => (num2) => num1 + num2;
 
 console.log(addNumbersNestedAFnShort(3)(4));
 
+
 // ÜL7 ümber kirjutatud shorthand arrow funktsioonina
 console.log("7. Ülesanne:");
 
 const greet = (name) => 'Hello ' + name;
 
 console.log(greet("Hans"));
+
+
+// ÜL8
+console.log("8. Ülesanne:");
+
+
+const newArray = [1, 2, 3, 4, 5];
+
+const addedArray = newArray.map(element => element + 5);
+
+console.log(addedArray);
