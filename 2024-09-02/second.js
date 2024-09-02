@@ -75,3 +75,16 @@ const newArray = [1, 2, 3, 4, 5];
 const addedArray = newArray.map(element => element + 5);
 
 console.log(addedArray);
+
+// ÜL8
+console.log("9. Ülesanne:");
+
+const threeParameters = newArray.map((element, Index, array) => {
+    console.log(element, Index, array);
+
+    const added = 1 + 2;
+
+    return element + 5;
+});
+
+console.log({ threeParameters })
