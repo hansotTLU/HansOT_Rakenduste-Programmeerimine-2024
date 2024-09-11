@@ -1,61 +1,72 @@
-// ÜL11 filtreerida välja uuesti massiivist kõik elemendid, mis on
+// 11, Ülesanne: filtreerida välja uuesti massiivist kõik elemendid, mis on suuremad kui 4
 
 const array = [1, 2, 3, 4, 5, 6];
 
-const filteringArray = array.filter((element) => {
-    console.log(element > 4);
+// const filteredArray = array.filter((element) => element > 4);
 
-    return element > 4;
+const filteredArray = array.filter((element) => {
+  console.log(element > 4);
+
+  return element > 4;
 });
 
-console.log({ filteringArray });
-console.log({ filteringArray: filteringArray });
-console.log(filteringArray);
+console.log({ filteredArray });
+console.log({ filteredArray: filteredArray });
+console.log(filteredArray);
 
 
-// ÜL12
+// 12. Ülesanne: Luua nimede massivi põhjal objektide massiv, mis koosneb sellisel kujul objektidest:
 
 const names = ["Anni", "Mari", "Mati", "Juku"];
 
-const objectifiedNames = names.map(name => {
-    return {
-        name: name,
-        age: name.length+20,
-        email: `${name}@company.com`,
-        address: `${name} Street 55`,
-        username: name.split("").reverse().join("")
-    }
-})
+const objectifiedNames = names.map((name) => {
+  return {
+    name: name,
+    age: name.length + 20,
+    email: `${name}@company.com`,
+    address: `${name} Street 55`,
+    username: name.split("").reverse().join(""),
+  };
+});
+
+console.log({ objectifiedNames });
 
 // {
-//     name: "Anni",
-//     age: 24,
-//     email: 'anni@company.com',
-//     address: 'Anni Street 55',
-//     username: 'innA'
+//   name: 'Anni',
+//   age: 24,
+//   email: 'anni@company.com',
+//   address: 'Anni Street 55',
+//   username: 'innA'
 // }
 
 
-// ÜL13 Tahame juurde lisada pikkuse ja jätta eelnevad kõik andmed samaks, spread syntax
+// 13. Tahame juurde lisada pikkuse ja jätta eelnevad kõik andmed samaks, spread syntax
 
-const auto = {
-    model: "Ford Mustang GT",
-    year: 2006,
+let car = {
+  model: "Ford Mustang GT",
+  year: 2006,
 };
 
-// auto = {...auto, hp: 300 }
+raimo = { ...car, hp: 300 };
 
-console.log({ auto });
+console.log({ car });
 
+
+// 15. == / ===
+
+console.log(1 == "1");
+console.log(1 === "1");
 
 // async/await Promise
 
 const myPromise = () => {
-    return new Promise((resolve) => setTimeout(() => resolve("done"), 1000));
+  return new Promise((resolve) => setTimeout(() => resolve("done"), 1000));
 };
 
 const runPromise = async () => {
-    console.log(await myPromise());
+  console.log(await myPromise());
 };
 
 runPromise();
+
+// setTimeout(() => console.log("timeout"), 2000);
