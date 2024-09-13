@@ -20,8 +20,7 @@ function App() {
       />
       <PropDrilling />
       <Counter />
-      <Name title="Hans" />
-      <Name />
+      <Name title="visitors!" />
     </>
   )
 }
