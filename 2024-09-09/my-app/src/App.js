@@ -6,6 +6,7 @@ import PropDrilling from "./components/PropDrilling"
 import Show from "./components/Show"
 import Context from "./components/Context"
 import Me from "./components/Me"
+import DisplayData from "./components/practice/DisplayData"
 
 function App() {
   const [show, setShow] = useState(true)
@@ -23,6 +24,7 @@ function App() {
       <Counter />
       <Name title="visitors!" />
       <Me name="Hans Oskar Trolla"/>
+      <DisplayData />
     </>
   )
 }
