@@ -32,15 +32,29 @@ exports.create = (req, res) => {
 };
 
 exports.read = (req, res) => {
-  res.send(cats);
+  const activeCats = cats.filter((cat) => !cat.deleted);
+  res.send(activeCats);
 };
 
 exports.update = (req, res) => {
-  const catID = req.params.id;
-  const name = req.body.name;
+  const { id } = req.params;
+  const { name } = req.body;
 
-  const cat = cats.find((cat) => cat.id === catId);
-  cat.name = newName;
+  const catIndex = cats.findIndex((cat) => cat.id === id);
+
+  cats[catIndex].name = name || cats[catIndex].name;
+  cats[catIndex].updatedAt = Date.now();
+
+  res.send(cats);
 };
 
-exports.delete = (req, res) => {};
+exports.delete = (req, res) => {
+  const { id } = req.params;
+
+  const catIndex = cats.findIndex((cat) => cat.id === id);
+
+  cats[catIndex].deleted = true;
+  cats[catIndex].updatedAt = Date.now();
+
+  res.send(cats);
+};
