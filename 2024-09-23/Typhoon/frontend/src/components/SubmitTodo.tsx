@@ -1,16 +1,18 @@
 import {
   Box,
   Button,
+  Input,
   Snackbar,
   SnackbarCloseReason,
   Stack,
   TextField,
 } from "@mui/material";
+import { setPriority } from "os";
 import React, { useState } from "react";
 
-const SubmitCat = () => {
-  const [name, setName] = useState("");
-  const [error, setError] = useState("");
+const SubmitTodo = () => {
+  const [title, setTitle] = useState("");
+  const [priority, setPriority] = useState<number>();
   const [open, setOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -24,31 +26,34 @@ const SubmitCat = () => {
     setOpen(false);
   };
 
-  const submitCat = async () => {
-    if (!name) {
+  const submitTodo = async () => {
+    if (!title) {
       console.warn("No success, field cannot be empty");
     } else {
       try {
-        const response = await fetch("http://localhost:8080/cats", {
+        const response = await fetch("http://localhost:8080/todo", {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: name }),
+          body: JSON.stringify({ title: title, priority: priority }),
         });
 
         if (response.ok) {
+          console.log("Success", response);
           setSnackbarMessage(
-            "Successfully added a cat! (refresh page to see the updated table)"
+            "Successfully added a task! (refresh page to see the updated table)"
           );
           setOpen(true);
         } else {
-          setSnackbarMessage("Failed to add cat");
+          console.warn("No success");
+          setSnackbarMessage("Failed to add task");
           setOpen(true);
         }
       } catch (error) {
-        setSnackbarMessage("Error while adding cat");
+        console.warn(error);
+        setSnackbarMessage("Error while adding task");
         setOpen(true);
       }
     }
@@ -56,7 +61,7 @@ const SubmitCat = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    submitCat();
+    submitTodo();
   };
 
   return (
@@ -64,13 +69,22 @@ const SubmitCat = () => {
       <form onSubmit={handleSubmit}>
         <Stack>
           <TextField
-            label="Cat Name"
-            onChange={(event) => setName(event.target.value)}
+            label="Task"
+            onChange={(event) => setTitle(event.target.value)}
             required
+          />
+          <TextField
+            label="Priority"
+            type="number"
+            value={priority}
+            onChange={(event) => setPriority(Number(event.target.value))}
+            required
+            inputProps={{ min: 1, max: 5 }}
           />
           <Button type="submit">Submit</Button>
         </Stack>
       </form>
+
       <Snackbar
         open={open}
         autoHideDuration={5000}
@@ -81,4 +95,4 @@ const SubmitCat = () => {
   );
 };
 
-export default SubmitCat;
+export default SubmitTodo;

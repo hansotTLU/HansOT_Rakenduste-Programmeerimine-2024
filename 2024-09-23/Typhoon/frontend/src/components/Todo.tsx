@@ -1,7 +1,5 @@
 import {
   Box,
-  List,
-  ListItem,
   Paper,
   Table,
   TableBody,
@@ -12,29 +10,30 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import EditCat from "./EditCat";
-import SubmitCat from "./SubmitCat";
+import EditTodo from "./EditTodo";
+import SubmitTodo from "./SubmitTodo";
 
-type Cat = {
+type Todo = {
   id: string;
-  name: string;
+  title: string;
+  priority: number;
   createdAt: number;
   updatedAt: number | null;
   deleted: boolean;
 };
 
-const Cats = () => {
-  const [cats, setCats] = useState<Cat[]>([]);
+const Todo = () => {
+  const [tasks, setTasks] = useState<Todo[]>([]);
 
-  const fetchCats = async () => {
-    const response = await fetch("http://localhost:8080/cats");
+  const fetchTasks = async () => {
+    const response = await fetch("http://localhost:8080/todo");
     const data = await response.json();
 
-    setCats(data);
+    setTasks(data);
   };
 
   useEffect(() => {
-    fetchCats();
+    fetchTasks();
   }, []);
 
   return (
@@ -44,7 +43,7 @@ const Cats = () => {
         margin: 2,
       }}
     >
-      <Typography variant="h3">Cats</Typography>
+      <Typography variant="h3">Tasks</Typography>
 
       <TableContainer component={Paper}>
         <Table
@@ -56,7 +55,8 @@ const Cats = () => {
         >
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "black" }}>Cat Name</TableCell>
+              <TableCell sx={{ color: "black" }}>Task</TableCell>
+              <TableCell sx={{ color: "black" }}>Priority</TableCell>
               <TableCell sx={{ color: "black" }} align="right">
                 Created
               </TableCell>
@@ -67,27 +67,30 @@ const Cats = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cats.map((cat) => (
+            {tasks.map((task) => (
               <TableRow
-                key={cat.name}
+                key={task.title}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
                 <TableCell sx={{ color: "black" }} component="th" scope="row">
-                  {cat.name}
+                  {task.title}
+                </TableCell>
+                <TableCell sx={{ color: "black" }} component="th" scope="row">
+                  {task.priority}
                 </TableCell>
                 <TableCell sx={{ color: "black" }} align="right">
-                  {new Date(cat.createdAt).toLocaleString()}
+                  {new Date(task.createdAt).toLocaleString()}
                 </TableCell>
                 <TableCell sx={{ color: "black" }} align="right">
                   {" "}
-                  {cat.updatedAt
-                    ? new Date(cat.updatedAt).toLocaleString()
+                  {task.updatedAt
+                    ? new Date(task.updatedAt).toLocaleString()
                     : "N/A"}
                 </TableCell>
                 <TableCell sx={{ color: "white" }} align="right">
-                  <EditCat cat={cat} />
+                  <EditTodo task={task} />
                 </TableCell>
               </TableRow>
             ))}
@@ -95,9 +98,9 @@ const Cats = () => {
         </Table>
       </TableContainer>
 
-      <SubmitCat />
+      <SubmitTodo />
     </Box>
   );
 };
 
-export default Cats;
+export default Todo;
