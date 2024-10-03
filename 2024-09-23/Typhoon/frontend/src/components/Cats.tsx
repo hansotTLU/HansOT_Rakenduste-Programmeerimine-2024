@@ -50,20 +50,15 @@ const Cats = () => {
         <Table
           sx={{
             minWidth: 650,
-            backgroundColor: "#cfcfcf",
           }}
           aria-label="simple table"
         >
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "black" }}>Cat Name</TableCell>
-              <TableCell sx={{ color: "black" }} align="right">
-                Created
-              </TableCell>
-              <TableCell sx={{ color: "black" }} align="right">
-                Updated
-              </TableCell>
-              <TableCell sx={{ color: "black" }} align="center"></TableCell>
+              <TableCell>Cat Name</TableCell>
+              <TableCell align="right">Created</TableCell>
+              <TableCell align="right">Updated</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,19 +69,19 @@ const Cats = () => {
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
-                <TableCell sx={{ color: "black" }} component="th" scope="row">
+                <TableCell component="th" scope="row">
                   {cat.name}
                 </TableCell>
-                <TableCell sx={{ color: "black" }} align="right">
+                <TableCell align="right">
                   {new Date(cat.createdAt).toLocaleString()}
                 </TableCell>
-                <TableCell sx={{ color: "black" }} align="right">
+                <TableCell align="right">
                   {" "}
                   {cat.updatedAt
                     ? new Date(cat.updatedAt).toLocaleString()
                     : "N/A"}
                 </TableCell>
-                <TableCell sx={{ color: "white" }} align="right">
+                <TableCell align="right">
                   <EditCat cat={cat} />
                 </TableCell>
               </TableRow>
@@ -95,7 +90,7 @@ const Cats = () => {
         </Table>
       </TableContainer>
 
-      <SubmitCat />
+      <SubmitCat fetchCats={fetchCats} />
     </Box>
   );
 };

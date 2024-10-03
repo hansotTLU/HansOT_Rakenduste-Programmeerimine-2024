@@ -49,21 +49,16 @@ const Todo = () => {
         <Table
           sx={{
             minWidth: 650,
-            backgroundColor: "#cfcfcf",
           }}
           aria-label="simple table"
         >
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "black" }}>Task</TableCell>
-              <TableCell sx={{ color: "black" }}>Priority</TableCell>
-              <TableCell sx={{ color: "black" }} align="right">
-                Created
-              </TableCell>
-              <TableCell sx={{ color: "black" }} align="right">
-                Updated
-              </TableCell>
-              <TableCell sx={{ color: "black" }} align="center"></TableCell>
+              <TableCell>Task</TableCell>
+              <TableCell>Priority</TableCell>
+              <TableCell align="right">Created</TableCell>
+              <TableCell align="right">Updated</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,22 +69,22 @@ const Todo = () => {
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
-                <TableCell sx={{ color: "black" }} component="th" scope="row">
+                <TableCell component="th" scope="row">
                   {task.title}
                 </TableCell>
-                <TableCell sx={{ color: "black" }} component="th" scope="row">
+                <TableCell component="th" scope="row">
                   {task.priority}
                 </TableCell>
-                <TableCell sx={{ color: "black" }} align="right">
+                <TableCell align="right">
                   {new Date(task.createdAt).toLocaleString()}
                 </TableCell>
-                <TableCell sx={{ color: "black" }} align="right">
+                <TableCell align="right">
                   {" "}
                   {task.updatedAt
                     ? new Date(task.updatedAt).toLocaleString()
                     : "N/A"}
                 </TableCell>
-                <TableCell sx={{ color: "white" }} align="right">
+                <TableCell align="right">
                   <EditTodo task={task} />
                 </TableCell>
               </TableRow>
@@ -98,7 +93,7 @@ const Todo = () => {
         </Table>
       </TableContainer>
 
-      <SubmitTodo />
+      <SubmitTodo fetchTasks={fetchTasks} />
     </Box>
   );
 };

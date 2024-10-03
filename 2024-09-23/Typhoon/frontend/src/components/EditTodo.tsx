@@ -98,12 +98,13 @@ const EditTodo = (
         <DialogTitle>Edit Task</DialogTitle>
         <DialogContent>
           <form onSubmit={handleUpdate}>
-            <Stack>
+            <Stack sx={{ paddingTop: 1 }}>
               <TextField
                 label="New Task"
                 value={newTitle}
                 onChange={(event) => setNewTitle(event.target.value)}
                 required
+                sx={{ paddingBottom: 3 }}
               />
               <TextField
                 label="Priority"

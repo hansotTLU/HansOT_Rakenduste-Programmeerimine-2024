@@ -89,7 +89,7 @@ const EditCat = ({ cat }: { cat: Cat }, { fetchCats }: { fetchCats: Cat }) => {
         <DialogTitle>Edit Cat Name</DialogTitle>
         <DialogContent>
           <form onSubmit={handleUpdate}>
-            <Stack>
+            <Stack sx={{ paddingTop: 1 }}>
               <TextField
                 label="Cat Name"
                 value={newName}
