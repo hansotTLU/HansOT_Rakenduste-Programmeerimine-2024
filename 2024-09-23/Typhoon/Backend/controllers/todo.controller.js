@@ -1,3 +1,5 @@
+const { query, matchedData, validationResult } = require("express-validator");
+
 const tasks = [
   {
     id: "0371101c-43d2-4e07-80d5-aba1b06d7cbf",
@@ -17,48 +19,68 @@ const tasks = [
   },
 ];
 
-exports.create = (req, res) => {
-  const { title } = req.body;
-  const { priority } = req.body;
+exports.create = [
+  query("title").notEmpty().escape(),
+  query("priority").isInt({ min: 1, max: 5 }),
+  (req, res) => {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      return res.send({ errors: result.array() });
+    }
 
-  const newTask = {
-    id: crypto.randomUUID(),
-    title: title,
-    priority: priority,
-    createdAt: Date.now(),
-    updatedAt: null,
-    deleted: false,
-  };
+    const data = matchedData(req);
 
-  tasks.push(newTask);
+    const { title } = req.body;
+    const { priority } = req.body;
 
-  res.send(newTask);
-};
+    const newTask = {
+      id: crypto.randomUUID(),
+      title: title,
+      priority: priority,
+      createdAt: Date.now(),
+      updatedAt: null,
+      deleted: false,
+    };
+
+    tasks.push(newTask);
+
+    res.send(newTask);
+  },
+];
 
 exports.read = (req, res) => {
   const activeTasks = tasks.filter((task) => !task.deleted);
   res.send(activeTasks);
 };
 
-exports.update = (req, res) => {
-  const { id } = req.params;
-  const { title } = req.body;
-  const { priority } = req.body;
+exports.update = [
+  query("title").notEmpty().escape(),
+  query("priority").isInt({ min: 1, max: 5 }),
+  (req, res) => {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      return res.send({ errors: result.array() });
+    }
 
-  const taskIndex = tasks.findIndex((task) => task.id === id);
+    const { id } = req.params;
+    const { title } = req.body;
+    const { priority } = req.body;
 
-  if (title !== undefined) {
-    tasks[taskIndex].title = title;
-  }
+    const taskIndex = tasks.findIndex((task) => task.id === id);
 
-  if (priority !== undefined && priority >= 1 && priority <= 5) {
-    tasks[taskIndex].priority = priority;
-  }
+    if (title !== undefined) {
+      tasks[taskIndex].title = title;
+    }
 
-  tasks[taskIndex].updatedAt = Date.now();
+    if (priority !== undefined && priority >= 1 && priority <= 5) {
+      tasks[taskIndex].priority = priority;
+    }
 
-  res.send(tasks);
-};
+    tasks[taskIndex].updatedAt = Date.now();
+
+    res.send(tasks);
+  },
+];
 
 exports.delete = (req, res) => {
   const { id } = req.params;

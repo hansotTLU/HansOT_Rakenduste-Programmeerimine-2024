@@ -2,7 +2,6 @@ import { createTheme, Stack, ThemeProvider, CssBaseline } from "@mui/material";
 import "./App.css";
 import Cats from "./components/Cats";
 import Todo from "./components/Todo";
-import { red, blue } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
@@ -28,10 +27,10 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-      <Stack direction="row" padding={5}>
-        <Cats />
-        <Todo />
-      </Stack>
+        <Stack direction="row" padding={5}>
+          <Cats />
+          <Todo />
+        </Stack>
       </ThemeProvider>
     </>
   );
