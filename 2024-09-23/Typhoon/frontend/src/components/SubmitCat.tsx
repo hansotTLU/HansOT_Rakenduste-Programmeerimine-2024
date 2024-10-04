@@ -8,9 +8,12 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const SubmitCat = () => {
+type SubmitCatProps = {
+  fetchCats: () => void;
+};
+
+const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
   const [name, setName] = useState("");
-  const [error, setError] = useState("");
   const [open, setOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -54,9 +57,10 @@ const SubmitCat = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    submitCat();
+    await submitCat();
+    fetchCats();
   };
 
   return (

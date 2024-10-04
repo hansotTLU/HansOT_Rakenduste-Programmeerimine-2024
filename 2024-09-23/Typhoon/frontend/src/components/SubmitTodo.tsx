@@ -10,9 +10,13 @@ import {
 import { setPriority } from "os";
 import React, { useState } from "react";
 
-const SubmitTodo = () => {
+type SubmitTodoProps = {
+  fetchTasks: () => void;
+};
+
+const SubmitTodo = ({ fetchTasks }: SubmitTodoProps) => {
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState<number>();
+  const [priority, setPriority] = useState<number | "">("");
   const [open, setOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -59,9 +63,10 @@ const SubmitTodo = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    submitTodo();
+    await submitTodo();
+    fetchTasks();
   };
 
   return (
